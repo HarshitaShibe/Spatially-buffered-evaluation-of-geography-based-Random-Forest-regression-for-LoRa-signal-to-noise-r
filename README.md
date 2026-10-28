@@ -1,200 +1,299 @@
-# Spatially buffered evaluation of geography-based Random Forest SNR prediction for LoRa links
+<div align="center">
 
-Course research project for topic 5: *RF Prediction: regression models to predict Signal-to-Noise Ratio and channel
-modelling for RF communication systems*. 
+# 📡 Does location really help predict LoRa SNR?
 
-**Question.** Random Forest models that use position (x, y, bearing) predict LoRa SNR better than distance-only
-models. Is that gain real generalisation to new places, or spatial leakage (test points sitting next to training
-points)? We test it by holding out 250 m blocks and removing all training locations within a buffer *b* of the
-test block, then measuring how much of the location advantage survives.
+### Spatially buffered evaluation of geography-based Random Forest regression for LoRa signal-to-noise ratio
 
-**Data.** Azevedo and Mendonça, *A Large-Scale LoRa Measurement Campaign in Urban and Suburban Environments*,
+![Python](https://img.shields.io/badge/Python-3.13-3776AB?logo=python&logoColor=white)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-1.9-F7931E?logo=scikitlearn&logoColor=white)
+![Dataset](https://img.shields.io/badge/data-CC%20BY%204.0-lightgrey)
+![Verified](https://img.shields.io/badge/independent%20verification-0%20failures-2ea44f)
+![Protocol](https://img.shields.io/badge/protocol-pre--registered-6b4fbf)
+
+*Course research project for topic 5: RF Prediction. Regression models to predict Signal-to-Noise Ratio, and channel modelling for RF communication systems.*
+
+</div>
+
+---
+
+## 🧭 The project in 30 seconds
+
+Machine-learning models that know **where** a device is (x, y, bearing to the gateway) predict LoRa SNR much
+better than models that only know the **distance**. But SNR is spatially correlated. When a test point has a
+training point 20 m away, the model can simply "look up" its neighbour.
+
+**So is the location advantage real generalisation, or spatial leakage?**
+
+We hold out whole 250 m blocks of the city and remove every training location within a buffer of
+**0 / 300 / 500 / 1,000 m**. Then we measure how much of the location advantage survives.
+
+<p align="center">
+  <img src="figures/readme_split_concept.png" width="100%" alt="Location split vs 250 m block split vs block with 500 m buffer, on real Funchal locations">
+</p>
+
+> **Answer:** once training data is ≥ 500 m away, the advantage shrinks by 46% (uplink) and 35% (downlink).
+> The remaining 0.8–0.9 dB is still there, so position does carry information beyond the distance curve. Under our
+> pre-registered ±0.5 dB rule the result is formally **inconclusive**, and it is sensitive to the Random
+> Forest leaf size.
+
+---
+
+## 📊 Key results
+
+<p align="center">
+  <img src="figures/readme_delta_loc.png" width="95%" alt="Location advantage Delta_loc versus buffer distance with 95% confidence intervals">
+</p>
+
+| Question | Finding | Verdict |
+| :-- | :-- | :-: |
+| **H1:** does the location advantage survive a 500 m buffer? | Δloc = −0.82 dB [−1.20, −0.46] uplink, −0.87 [−1.35, −0.42] downlink. Smaller than at 0 m (−1.52 / −1.34), still ≠ 0, but not entirely beyond −0.5 dB | 🟡 inconclusive |
+| **H2:** does the RF learn a better distance curve? | RF-dist ≈ log-distance OLS under every grouped split, so the gain is **location**, not distance | 🔴 not supported |
+| **H3:** are random splits optimistic? | RMSE ordering random < location < 250 m < 500 m blocks; every paired CI excludes 0 | 🟢 supported |
+| **H4:** does irreducible noise dominate? | Within-location floor 2.99 / 2.67 dB; its share of MSE falls from 0.35 to 0.13–0.14 as separation grows | 🟢 supported |
+| **H5:** are weak links over-predicted? | With 1–2 received packets: +5.0 dB (uplink S250), +7.7 dB (uplink LOBO 500 m) | 🟢 supported (descriptive) |
+
+<details>
+<summary><b>RMSE of the location-aware Random Forest by evaluation scheme (dB)</b></summary>
+
+| Direction | Random | Location | 250 m blocks | 500 m blocks | LOBO 0 m | LOBO 300 m | LOBO 500 m | LOBO 1,000 m | Floor |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Uplink | 3.61 | 5.03 | 5.72 | 6.40 | 5.58 | 6.65 | 6.92 | 8.04 | 2.99 |
+| Downlink | 3.26 | 4.48 | 4.93 | 5.66 | 4.88 | 5.79 | 6.13 | 7.51 | 2.67 |
+
+<img src="figures/fig1_rmse_by_scheme.png" width="100%" alt="RMSE by scheme">
+</details>
+
+<details>
+<summary><b>Where the Random Forest gain comes from: distance vs location</b></summary>
+
+<img src="figures/fig2_gain_decomposition.png" width="100%" alt="Gain decomposition">
+
+The orange points (RF-dist − log-distance) sit at about 0 under every honest split, so the extra flexibility in
+distance buys nothing. All the gain is in the green points (RF-loc − RF-dist), which is location information.
+</details>
+
+**Other findings**
+- 🗺️ The location advantage that survives at 500 m is concentrated at **gateway GC**.
+- 📐 Residual spatial correlation is **not eliminated** at 500 m: the upper CI reaches 0.226. So we never call the test set "spatially independent".
+- 📡 **Channel-model check:** our path-loss fit reproduces the dataset paper's Table 3 (α 42.7 / 54.8 / 44.0 dB, β 2.79 / 2.37 / 2.93).
+
+---
+
+## 🔬 How it works
+
+### The decomposition being tested
+
+```mermaid
+flowchart LR
+    A["Log-distance OLS<br/>SNR = a + b·log10 d"] -->|"Δdist<br/>(non-linear distance)"| B["RF-dist<br/>log10 d + gateway"]
+    B -->|"Δloc<br/>(location information)"| C["RF-loc<br/>+ bearing, x, y"]
+    style A fill:#e8f1fc,stroke:#2a78d6
+    style B fill:#fdeee6,stroke:#eb6834
+    style C fill:#e4f6ee,stroke:#1baf7a
+```
+
+### Evaluation schemes, from leaky to strict
+
+```mermaid
+flowchart LR
+    R["<b>R</b><br/>random packets<br/><i>same location in<br/>train and test</i>"] --> L["<b>L</b><br/>unseen locations<br/><i>neighbours<br/>in training</i>"]
+    L --> S["<b>S250 / S500</b><br/>unseen 250 / 500 m<br/>blocks"]
+    S --> B["<b>LOBO-B</b><br/>block + buffer<br/>0 · 300 · 500 · 1000 m"]
+    style R fill:#fdecea,stroke:#c0392b
+    style B fill:#e4f6ee,stroke:#1baf7a
+```
+
+### Models (no RSSI, no packet counts: geometry only)
+
+| ID | Model | Inputs |
+| :-: | :-- | :-- |
+| M0 | `mean` | per-gateway training mean |
+| M1 | `logdist` | per-gateway OLS of SNR on log10 d (empirical, not a path-loss model) |
+| M2 | `rf_dist` | Random Forest: log10 d + gateway |
+| M3 | `lr_loc` | linear regression: log10 d, sin/cos bearing, x, y, gateway |
+| M4 | `rf_loc` | Random Forest: log10 d, sin/cos bearing, x, y, gateway (**main model**) |
+
+### Safeguards against fooling ourselves
+
+```mermaid
+flowchart TB
+    P["📝 Protocol frozen<br/>before any result"] --> C["04a: buffer B* chosen from the<br/>residual correlogram<br/><i>refuses to run if buffered results exist</i>"]
+    C --> E["04b: buffered runs<br/><i>assert: every training location ≥ b m away</i>"]
+    E --> S["07: paired spatial block bootstrap<br/>2,000 replicates, 500 m blocks"]
+    S --> V["06 + verify_results.py<br/>independent recompute → 0 failures"]
+```
+
+---
+
+## 🗂️ Dataset
+
+**A Large-Scale LoRa Measurement Campaign in Urban and Suburban Environments**, by Azevedo and Mendonça.
 Mendeley Data, DOI [10.17632/79vh7wnwhg.1](https://doi.org/10.17632/79vh7wnwhg.1), CC BY 4.0.
-- Funchal, Madeira: 3 gateways (GA, GB, GC), 1,203 fixed device locations, 8 packets per location.
-- Radio settings: SF12, 125 kHz, 868 MHz.
-- 37,029 received packets: 18,519 uplink and 18,510 downlink.
-- Target: SNR (integer dB) of *received* packets, modelled per direction. Lost packets are never imputed.
+
+| | |
+| :-- | :-- |
+| 📍 Area | Funchal, Madeira (Portugal) |
+| 📶 Radio | LoRa SF12, 125 kHz, 868.1 / 868.3 / 868.5 MHz, 14 dBm |
+| 🏢 Gateways | 3 (GA, GB, GC) |
+| 📌 Locations | 1,203 fixed device positions, 8 packets each |
+| 📦 Received packets | 37,029 (18,519 uplink · 18,510 downlink) |
+| 🎯 Target | SNR (dB) of *received* packets, modelled per direction |
+
+<details>
+<summary>Map of the measurement locations</summary>
+<img src="figures/eda_map_folds_S250.png" width="80%" alt="Measurement locations coloured by fold">
+</details>
 
 ---
 
-## Main results
-
-All results are verified. Source files are listed in `FINAL_STATUS.md`.
-
-| | Result |
-| --- | --- |
-| **Buffer B\*** | 500 m, from the frozen correlogram rule. Residual correlation is **not** eliminated: the upper 95% CI reaches 0.226 at GC |
-| **RF-loc RMSE, uplink** | 3.61 dB (random split) · 5.72 (250 m blocks) · 5.58 (LOBO 0 m) · 6.92 (LOBO 500 m) · 8.04 (LOBO 1,000 m). Within-location floor: 2.99 dB |
-| **H1: location advantage at 500 m** | Δloc = RMSE(RF-loc) − RMSE(RF-dist) is −0.82 dB [−1.20, −0.46] uplink and −0.87 [−1.35, −0.42] downlink. It is about half the 0 m value but still present. Classification: **inconclusive** (δ = 0.5 dB). The result is **hyperparameter-sensitive**: leaf 5 gives −1.69 / −1.56 |
-| **H2: distance non-linearity** | **Not supported.** RF-dist ≈ log-distance OLS under every grouped split, so the RF gain comes from location, not from a better distance curve |
-| **H3: random-split optimism** | **Supported.** RMSE ordering R < L < S250 < S500, and every paired CI excludes 0 |
-| **H4: error composition** | **Supported.** The floor's share of MSE falls from 0.35 (L) to 0.13–0.14 (LOBO 1,000 m) |
-| **H5: weak links** | **Supported, descriptively.** At locations with only 1–2 received packets, SNR is over-predicted by +5.0 dB (uplink, S250) and +7.7 dB (uplink, LOBO 500 m) |
-| **Per gateway** | The location advantage that remains at 500 m is concentrated at GC |
-| **Channel model check** | The path-loss fit reproduces the dataset paper's Table 3 (α 42.7/54.8/44.0 dB, β 2.79/2.37/2.93) |
-
----
-
-## Quick start
+## 🚀 Quick start
 
 ```bash
+git clone https://github.com/HarshitaShibe/AI_For_Electronics_Research_Paper.git
+cd AI_For_Electronics_Research_Paper
 pip install -r requirements.txt
 ```
 
-**A. Show the results without retraining (about 2 min).** This needs `predictions/`; see [Predictions and archive](#predictions-and-archive-not-in-git).
+**Option A: reproduce every number without retraining (about 2 min).**
+
+First download `predictions.zip` from **Releases** and unzip it into the repo folder.
 
 ```bash
 python 06_check.py               # integrity checks      -> "OK: 44 prediction files checked ..."
 python tools/verify_results.py   # independent recompute -> "0 failure(s)"
-python 07_analysis.py            # all statistics and the H1 verdict, from saved predictions
-python 05_summarise.py           # Tables 1-6 and Figures 1-4
+python 07_analysis.py            # all statistics + H1 verdict
+python 05_summarise.py           # Tables 1-6, Figures 1-4
 ```
 
-Or open `demo.ipynb` in Jupyter and choose **Kernel → Restart & Run All**. It runs the commands above and shows
-the tables and figures. It then trains the models live on a 12-block subset (about 2–3 min).
+You can also open **`demo.ipynb`** and choose *Kernel → Restart & Run All*. It includes a live training run on 12
+blocks (about 2–3 min).
 
-**B. Full rerun from the raw CSVs (about 3–4 h on 2 cores).**
+**Option B: full rerun from the raw CSVs (about 3–4 h on 2 cores).**
 
 ```bash
 bash run_all.sh
 ```
 
-On Windows without bash, run the commands in `run_all.sh` one by one, in the same order.
+---
+
+## ⚙️ Pipeline
+
+```mermaid
+flowchart TB
+    subgraph PREP["① Prepare"]
+        direction LR
+        raw[("data/raw<br/>6 CSVs")] --> v[01_validate] --> sp[02_splits] --> eda[03_eda] --> fc[08_freeze_checks]
+    end
+    subgraph FIT["② Train and predict"]
+        direction LR
+        ev["04_evaluate<br/>R · L · S250 · S500"] --> cal["04a_calibrate<br/>choose B*"] --> buf["04b_buffered<br/>main · r1 · r2 · r6"] --> pred[("predictions/")]
+    end
+    subgraph ANA["③ Analyse and check"]
+        direction LR
+        an["07_analysis<br/>bootstrap, H1"] --> chk[06_check] --> sum["05_summarise<br/>tables + figures"] --> pl[09_pathloss]
+        an -.-> ver["verify_results.py"]
+    end
+    PREP --> FIT --> ANA
+```
+
+Each stage reads only earlier outputs and writes to disk, so every number can be traced back to a file.
 
 ---
 
-## Pipeline
+## 📁 What each file does
 
-```
-data/raw (6 CSVs)
-   │
-01_validate ─► 02_splits ─► 03_eda ─► 08_freeze_checks
-                                            │
-                     04_evaluate --smoke ─► 04_evaluate ─► 04_evaluate --r1-base
-                                                                  │
-                                         04a_calibrate  (chooses buffer B*, BEFORE any buffered run)
-                                                                  │
-                                         04b_buffered main | r1 | r2 | r6
-                                                                  │
-                                    07_analysis ─► 06_check ─► 05_summarise ─► 09_pathloss_reproduction
-                                                                  │
-                                                     tools/verify_results.py
-```
-
-Each stage reads only earlier outputs and writes its own outputs to disk, so every number can be traced to a file.
-
----
-
-## What each file does
-
-### Pipeline scripts (in run order)
+<details open>
+<summary><b>Pipeline scripts</b> (in run order)</summary>
 
 | File | What it does | Main outputs |
 | --- | --- | --- |
-| `common.py` | Shared helpers. Holds the folder paths and the global seed (`SEED = 20251028`). Holds the canonical column names, which fix two header quirks in the raw files. Holds the documented link parameters (SF, Tx power, frequencies, antenna heights). Also provides the raw-file reader, haversine distance, gateway-to-device bearing and a local x/y projection in metres | — (imported by every script) |
-| `models.py` | **Model definitions.** Feature sets: `FEAT_DIST` is log10 d + gateway; `FEAT_LOC` adds sin/cos bearing and x, y. Models: M0 `mean`, M1 `logdist` (per-gateway OLS of SNR on log10 d), M2 `rf_dist`, M3 `lr_loc`, M4 `rf_loc`, plus the appendix models. `tune_rf` is the inner grouped 3-fold search over leaf {5, 20, 50} × max_features {0.5, 1.0}, with 200 trees. RSSI is never an input, except in the `rf_C` diagnostic | — (imported by 04, 04a, 04b) |
-| `01_validate.py` | Loads the six raw files and runs hard schema and consistency asserts. Builds the tidy tables | `data/processed/packets.csv`, `locations.csv`, `sites.csv`, `gateways.csv`, `results/validation_report.*` |
-| `02_splits.py` | Assigns folds **once**, per location. Schemes: R (random packets), L (by location), S250 and S500 (250 / 500 m grid blocks). Adds shifted grids and seeds for R1, and 1,000 m blocks for the bootstrap. Builds the leave-one-block-out buffer masks for b = 0 / 300 / 500 / 1,000 m, and asserts every kept training location is ≥ b from the test block | `splits/location_folds.csv`, `packet_folds_R.csv`, `lobo_excluded.csv`, `split_summary.json` |
-| `03_eda.py` | Descriptive exploration on the whole dataset: SNR vs distance, packet loss, within-location variability, SNR saturation vs RSSI. **Not** evaluation results | `results/eda/*.csv`, `figures/eda_*.png` |
-| `08_freeze_checks.py` | Feasibility checks before the protocol was frozen. Uses only geometry and packet counts: no SNR values, no model fitting. U1: training data and distance support left at each buffer. U2: number of bootstrap blocks | `results/freeze_checks/*` |
-| `04_evaluate.py` | Grouped evaluation for R, L, S250 and S500, with 5 outer folds per direction. Tunes `rf_dist` and `rf_loc` **separately** inside each training fold. Then derives the fixed hyperparameters for the buffered runs (the modal S250 choice) and runs the R1 grid/seed variants. Flags: `--smoke` checks the code reproduces the archived predictions; `--r1-base` runs the fixed-hyperparameter base grid | `predictions/oof_<dir>_<scheme>.csv`, `results/eval/hp_fixed.json`, `chosen_hyperparameters*.csv`, `smoke_test.json` |
-| `04a_calibrate.py` | **Chooses the buffer B\*** before any buffered result exists; it refuses to run if one does. Builds a correlogram of RF-dist residuals with a 500 m block bootstrap. Frozen rule: B\* is the smallest b in {300, 500} whose upper 95% CI is < 0.1 | `results/calibration/correlogram.csv`, `buffer_choice.json` |
-| `04b_buffered.py` | **Buffered leave-one-250m-block-out.** Each block is tested once, and training locations within b m are removed. Each row records `sep_m` (distance to the nearest training location) and `supported` (distance support). Stages: `main` (b = 0/300/500/1,000), `r1` (shifted grid), `r2` (size-matched thinning), `r6` (leaf 5 / 50) | `predictions/oof_<dir>_LOBO_B<b>.csv`, `_R1_LOBO_o1_*`, `_R2_thin*`, `_R6_leaf*` |
-| `07_analysis.py` | **All statistics**, from saved predictions only (no refitting). Uncertainty: paired spatial block bootstrap, 2,000 replicates, 500 m blocks (1,000 m as sensitivity). Covers P1 (RMSE by scheme), P2 (error vs separation), P3 (paired gains and the **H1 verdict**) and P4 (floor decomposition). Also robustness R1–R7 and the appendix models | `results/analysis/*.csv`, `h1_verdict.json`, `analysis_summary.md` |
-| `06_check.py` | Integrity checks on every prediction file. Full packet coverage; no location in two folds; buffers hold (`sep_m ≥ b`). Same test packets across buffered runs; separate tuning. B\* written before the first buffered file; RMSE reproduces from the predictions | `logs/06_check.log` |
-| `05_summarise.py` | Turns `results/analysis` into report tables and figures. Changes no number | `results/summary/table1…table6*.csv`, `summary.md`, `figures/fig1–fig4*.png` |
-| `09_pathloss_reproduction.py` | **Channel-modelling check.** Effective signal power (ESP), then path loss, then a floating-intercept log-distance fit per gateway, following Azevedo & Mendonça (2026). The result is compared with their Table 3 and coverage figures, which validates our data handling | `results/pathloss/*` |
-| `run_all.sh` | Runs every stage above in the correct order and writes one log per stage | `logs/*.log` |
+| `common.py` | Shared helpers: paths, global seed (`20251028`), column names that fix two raw-header quirks, documented link parameters, raw reader, haversine distance, bearing, local x/y projection | imported by all |
+| `models.py` | **Model definitions** M0–M4 and the appendix models, feature sets `FEAT_DIST` / `FEAT_LOC`, and `tune_rf`. Tuning is an inner grouped 3-fold search over leaf {5, 20, 50} × max_features {0.5, 1.0}, with 200 trees | imported by 04, 04a, 04b |
+| `01_validate.py` | Loads the six raw files, runs hard schema and consistency asserts, builds tidy tables | `data/processed/*.csv`, `results/validation_report.*` |
+| `02_splits.py` | Assigns folds once, per location: R, L, S250, S500, shifted grids and seeds, 1,000 m blocks. Builds the buffer masks and asserts each kept training location is ≥ b away | `splits/*` |
+| `03_eda.py` | Descriptive plots and fits on the whole dataset (not evaluation results) | `results/eda/`, `figures/eda_*` |
+| `08_freeze_checks.py` | Feasibility of buffers and bootstrap blocks, from geometry only (no SNR, no fitting) | `results/freeze_checks/` |
+| `04_evaluate.py` | Grouped schemes with separate inner tuning of `rf_dist` and `rf_loc`. Derives the fixed hyperparameters for the buffered runs and runs the R1 variants. Flags: `--smoke` checks reproduction of the archive; `--r1-base` runs the base grid | `predictions/oof_*`, `results/eval/` |
+| `04a_calibrate.py` | **Chooses the buffer B\*** from the residual correlogram, before any buffered result exists | `results/calibration/` |
+| `04b_buffered.py` | **Leave-one-250m-block-out** with buffer b. Records `sep_m` and distance support for each row. Stages: `main`, `r1`, `r2`, `r6` | `predictions/oof_*_LOBO_*`, `_R1_*`, `_R2_*`, `_R6_*` |
+| `07_analysis.py` | All statistics from saved predictions: paired block bootstrap, P1–P4, **H1 verdict**, robustness R1–R7, appendix | `results/analysis/` |
+| `06_check.py` | Integrity checks: coverage, no fold crossing, buffers hold, B\* timing, RMSE reproduces | `logs/06_check.log` |
+| `05_summarise.py` | Report tables and figures (changes no number) | `results/summary/`, `figures/fig1–4` |
+| `09_pathloss_reproduction.py` | Channel model: ESP, then path loss, then a log-distance fit, compared with the dataset paper's Table 3 | `results/pathloss/` |
+| `run_all.sh` | Runs everything in order and writes a log for each stage | `logs/` |
 
-### Verification and tools
+</details>
+
+<details>
+<summary><b>Verification, tools and notebook</b></summary>
 
 | File | What it does |
 | --- | --- |
-| `tools/verify_results.py` | Recomputes the key numbers with code **separate from `07_analysis.py`**. Checks: RMSE; H1 Δloc with its own bootstrap; the B1000 subset; CI ordering; the floor; buffer distances; the R1 and pairing rules. Exits non-zero on any failure. Output: `results/verification/verification_report.md` |
-| `tools/make_manifest.py` | Packaging helper. Writes `MANIFEST.csv` (path, size, SHA-256, provenance class) for a snapshot. Not a pipeline stage |
-| `demo.ipynb` | Presentation notebook. Runs the checks and the recompute, shows the results tables, figures and path loss, then trains live on 12 uplink blocks at 0 m and 500 m buffers |
-| `requirements.txt` | Pinned library versions (Python 3.13) |
-| `.gitignore` | Keeps `predictions/`, `archive/`, caches and zips out of git |
+| `tools/verify_results.py` | Recomputes the key numbers with code separate from `07_analysis.py` and exits non-zero on any failure |
+| `tools/make_readme_figures.py` | Builds the two README figures from the split files and `P2b` (changes no result) |
+| `tools/make_manifest.py` | Writes `MANIFEST.csv` (SHA-256 + provenance) for a snapshot |
+| `demo.ipynb` | Presentation notebook: checks → tables → figures → path loss → live training |
+| `requirements.txt` | Pinned library versions |
 
-### Documentation
+</details>
+
+<details>
+<summary><b>Documentation</b></summary>
 
 | File | What it is |
 | --- | --- |
-| `FINAL_STATUS.md` | **Start here for results.** Every verified number with its source file, the stage execution table and 10 limitations |
-| `CODE_WALKTHROUGH.md` | The six code places to show in a review (file:line), and how correctness is checked |
-| `literature_review.md` | Literature review: 25 verified references grouped by theme, and the research gap |
-| `references_verified.bib` | BibTeX for those 25 references, with the verification level of each |
-| `docs/PROTOCOL_FREEZE_rev46.md` | The frozen protocol, written before results: models, splits, the B\* rule, hypotheses H1–H5, δ and the robustness checks |
-| `docs/PROTOCOL_AMENDMENTS_2026-10-28.md` | Dated amendments A1–A6, all written before any buffered or analysis result existed |
-| `docs/DECISION_LOG.md` | Open decisions D1–D5 and how each was resolved |
-| `docs/ENVIRONMENT.md` | OS, Python and library versions, every random seed, and the full `pip freeze` |
-| `STATUS.md` | Older execution snapshot (28 Oct, 00:46 UTC). Superseded by `FINAL_STATUS.md`, kept for the record |
-| `PROVISIONAL_STATUS.md` | Status of the pre-freeze provisional outputs (`results/audit/`, `results/eda/`) |
+| `FINAL_STATUS.md` | **Start here.** Every verified number with its source file, plus the limitations |
+| `CODE_WALKTHROUGH.md` | The six code places to show in a review (file:line) |
+| `literature_review.md` · `references_verified.bib` | 25 verified references and the research gap |
+| `docs/PROTOCOL_FREEZE_rev46.md` | The frozen protocol: models, splits, B\* rule, H1–H5, δ |
+| `docs/PROTOCOL_AMENDMENTS_2026-10-28.md` | Amendments A1–A6, written before any buffered or analysis result |
+| `docs/DECISION_LOG.md` | Decisions D1–D5 and how each was resolved |
+| `docs/ENVIRONMENT.md` | Versions, seeds, `pip freeze` |
+| `STATUS.md` · `PROVISIONAL_STATUS.md` | Earlier snapshots, kept for the record |
 
-### Data and output folders
+</details>
+
+<details>
+<summary><b>Data and output folders</b></summary>
 
 | Folder | Contents |
 | --- | --- |
-| `data/raw/` | The six original CSVs (`GA/GB/GC_Uplink/Downlink.csv`), unmodified |
-| `data/processed/` | Tidy tables from `01_validate`: packets, per-location counts, sites, gateways |
-| `splits/` | Fold assignment per location, random packet folds and buffer exclusion lists |
-| `predictions/` | *(not in git)* 44 files of out-of-fold predictions: every model for every packet, per scheme |
-| `results/eval/` | Hyperparameters chosen per fold, the fixed hyperparameters, the smoke test and run info |
-| `results/calibration/` | The correlogram and the B\* decision |
-| `results/analysis/` | All primary, robustness and appendix tables, and the H1 verdict |
-| `results/summary/` | Report Tables 1–6 (`table1`…`table6`) |
+| `data/raw/` | The six original CSVs, unmodified |
+| `data/processed/` | Tidy packets, locations, sites, gateways |
+| `splits/` | Fold assignments and buffer exclusion lists |
+| `predictions/` | *(Releases, not in git)* 44 out-of-fold prediction files |
+| `results/analysis/` | All analysis tables and `h1_verdict.json` |
+| `results/summary/` | Report Tables 1–6 |
+| `results/calibration/` | Correlogram and the B\* decision |
 | `results/verification/` | Independent verification report |
-| `results/pathloss/` | Path-loss reproduction vs the dataset paper |
-| `results/freeze_checks/` | U1/U2 feasibility checks |
-| `results/eda/`, `results/audit/` | Descriptive and provisional analyses from before the freeze (see `PROVISIONAL_STATUS.md`) |
-| `figures/` | `fig1`–`fig4` (report figures) and `eda_*` (exploratory) |
-| `logs/` | Console output of every stage run |
-| `archive/` | *(not in git)* Untouched pre-freeze provisional outputs, with SHA-256 checksums |
+| `results/pathloss/` | Path-loss reproduction |
+| `results/eval/`, `results/freeze_checks/` | Hyperparameters, smoke test, feasibility checks |
+| `results/eda/`, `results/audit/` | Pre-freeze descriptive and provisional analyses |
+| `figures/` | `fig1–4` (report), `readme_*` (this page), `eda_*` (exploratory) |
+| `logs/` | Console output of every stage |
 
-Some files are **stale provisional files** from before the freeze:
-- `results/eval/metrics*.csv`;
-- `results/summary/table_main_S250.csv`, `table_by_gateway_S250.csv`, `table_location_level_S250.csv` and `table_split_inflation.csv`.
+Some older files are **stale provisional outputs**, superseded by `results/analysis/` and `table1`–`table6`:
+- `results/eval/metrics*.csv`
+- `results/summary/table_main_S250.csv` and the other `table_*_S250.csv` / `table_split_inflation.csv` files
 
-They are superseded by `results/analysis/` and `table1`–`table6`. Copies are in the archive.
+</details>
 
 ---
 
-## Design rules (pre-registered)
+## ⚠️ Limitations
 
-- **No target leakage.** Inputs are geometry and gateway only: no RSSI, ESP, timestamps or packet counts.
-- **Tuning on training data only.** Inner CV is grouped by the same unit as the outer split.
-- **Buffer chosen before results exist.** `04a` asserts that no buffered prediction exists; `06` checks the file timestamps.
-- **Paired uncertainty.** The same bootstrap block draws are used for every model compared, so differences are paired.
-- **H1 decision rule (95% CI of Δloc):**
-  - inside (−0.5, 0.5) dB → no practical location advantage;
-  - entirely below −0.5 dB → the advantage persists;
-  - anything else → inconclusive.
-
-  A general claim needs both directions to agree.
-- **Wording.** Results are never called "spatially independent". We write "≥ b m from any training location" and give the residual correlation measured at that lag.
-
-Full details: `docs/PROTOCOL_FREEZE_rev46.md` and `docs/PROTOCOL_AMENDMENTS_2026-10-28.md`.
-
-## Limitations (short)
-
-- One city, one spreading factor (SF12) and three gateways; frequency is confounded with gateway.
-- Residual correlation is not eliminated at 500 m.
-- H1 is hyperparameter-sensitive.
-- Results apply to received packets only.
+- One city, SF12 only, three gateways; frequency is confounded with gateway.
+- Residual spatial correlation remains at 500 m, so the bootstrap CIs are not fully reliable spatial uncertainty estimates.
+- H1 is sensitive to the Random Forest leaf size (leaf 5 gives about −1.6 dB).
+- Results describe **received** packets only; weak links are over-predicted.
 - Horizontal distance is used; the dataset paper corrects for antenna height.
 
-The full list is in `FINAL_STATUS.md` §4.
+The full list is in [`FINAL_STATUS.md`](FINAL_STATUS.md) §4.
 
-## Predictions and archive (not in git)
+---
 
-`predictions/` (147 MB) and `archive/` are excluded by `.gitignore`. To run Quick start part **A** on a fresh clone:
-1. Download `predictions.zip` from this repository's **Releases** page.
-2. Unzip it into the project folder, so that `predictions/oof_*.csv` exists.
+## 📚 Citation and licence
 
-Or regenerate everything with `bash run_all.sh`.
-
-## Citation and licence
-
-- Dataset: Azevedo and Mendonça, Mendeley Data, DOI 10.17632/79vh7wnwhg.1, CC BY 4.0.
-- Dataset paper: Azevedo and Mendonça, *IEEE Access*, 2026, doi:10.1109/ACCESS.2026.3730186.
-- Code licence: to be added (e.g. MIT) after checking institution rules.
+- **Dataset:** Azevedo & Mendonça, Mendeley Data, [10.17632/79vh7wnwhg.1](https://doi.org/10.17632/79vh7wnwhg.1), CC BY 4.0.
+- **Dataset paper:** Azevedo & Mendonça, *IEEE Access*, 2026, [10.1109/ACCESS.2026.3730186](https://doi.org/10.1109/ACCESS.2026.3730186).
+- **Code licence:** to be added.
