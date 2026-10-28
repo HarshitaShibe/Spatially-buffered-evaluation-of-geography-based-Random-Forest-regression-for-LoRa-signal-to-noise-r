@@ -1,0 +1,8 @@
+model,Downlink,Uplink
+mean,7.033,8.101
+logdist,6.059,6.832
+lr_A,5.581,6.398
+rf_A0,4.439,5.005
+rf_A,4.355,4.946
+resrf_A,4.399,5.026
+xgb_A,4.505,5.079

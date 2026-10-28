@@ -1,0 +1,7 @@
+gateway,direction,locations_used,pooled_within_sd_db,ci95_low,ci95_high
+GA,Downlink,678,2.351,2.149,2.523
+GA,Uplink,679,3.308,3.144,3.445
+GB,Downlink,1119,2.949,2.814,3.09
+GB,Uplink,1119,3.312,3.191,3.413
+GC,Downlink,951,3.165,3.017,3.307
+GC,Uplink,951,3.168,2.999,3.324

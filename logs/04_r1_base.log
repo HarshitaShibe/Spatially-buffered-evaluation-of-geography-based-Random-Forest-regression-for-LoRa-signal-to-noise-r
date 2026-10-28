@@ -1,0 +1,11 @@
+Uplink R1_S250_o0_s0 fold 0       2s  rf_dist={'min_samples_leaf': 50, 'max_features': 1.0} rf_loc={'min_samples_leaf': 20, 'max_features': 0.5}
+Uplink R1_S250_o0_s0 fold 1       5s  rf_dist={'min_samples_leaf': 50, 'max_features': 1.0} rf_loc={'min_samples_leaf': 20, 'max_features': 0.5}
+Uplink R1_S250_o0_s0 fold 2       7s  rf_dist={'min_samples_leaf': 50, 'max_features': 1.0} rf_loc={'min_samples_leaf': 20, 'max_features': 0.5}
+Uplink R1_S250_o0_s0 fold 3       9s  rf_dist={'min_samples_leaf': 50, 'max_features': 1.0} rf_loc={'min_samples_leaf': 20, 'max_features': 0.5}
+Uplink R1_S250_o0_s0 fold 4      11s  rf_dist={'min_samples_leaf': 50, 'max_features': 1.0} rf_loc={'min_samples_leaf': 20, 'max_features': 0.5}
+Downlink R1_S250_o0_s0 fold 0      13s  rf_dist={'min_samples_leaf': 50, 'max_features': 1.0} rf_loc={'min_samples_leaf': 20, 'max_features': 0.5}
+Downlink R1_S250_o0_s0 fold 1      15s  rf_dist={'min_samples_leaf': 50, 'max_features': 1.0} rf_loc={'min_samples_leaf': 20, 'max_features': 0.5}
+Downlink R1_S250_o0_s0 fold 2      18s  rf_dist={'min_samples_leaf': 50, 'max_features': 1.0} rf_loc={'min_samples_leaf': 20, 'max_features': 0.5}
+Downlink R1_S250_o0_s0 fold 3      20s  rf_dist={'min_samples_leaf': 50, 'max_features': 1.0} rf_loc={'min_samples_leaf': 20, 'max_features': 0.5}
+Downlink R1_S250_o0_s0 fold 4      22s  rf_dist={'min_samples_leaf': 50, 'max_features': 1.0} rf_loc={'min_samples_leaf': 20, 'max_features': 0.5}
+done --r1-base 22 s

@@ -1,0 +1,232 @@
+{
+ "files": {
+  "GA_Uplink": {
+   "sha256": "83deb6b4edb6ea546ac0c10b9dad4265dc3c4c8de5be2900229198d8d40a4573",
+   "raw_header": "ID,Timestamp,Latitude_GA,Longitude_GA,Latitude_ED,Longitude_ED,RSSI1,RSSI2,RSSI3,RSSI4,RSSI5,RSSI6,RSSI7,RSSI8,SNR1,SNR2,SNR3,SNR4,SNR5,SNR6,SNR7,SNR8",
+   "rows": 1203,
+   "fields_per_data_line": {
+    "22": 1203
+   },
+   "duplicate_rows": 0,
+   "duplicate_ids": 0,
+   "gateway_coords": [
+    [
+     32.6586745,
+     -16.9241067
+    ]
+   ],
+   "missing_device_coords": 0,
+   "unparsed_timestamps": 0,
+   "valid_snr_cells": 4180,
+   "valid_rssi_cells": 4174,
+   "snr_without_rssi": 6,
+   "rssi_without_snr": 0,
+   "snr_non_integer": 5444,
+   "snr_range": [
+    -21.0,
+    9.0
+   ],
+   "rssi_range": [
+    -112.0,
+    -40.0
+   ]
+  },
+  "GA_Downlink": {
+   "sha256": "1836aadb87d3c56ca743fef9ced6a6e595d60474936ec16d35853fffa3c7a256",
+   "raw_header": "ID,Timestamp,Latitude_GA,Longitude_GA,Latitude_ED,Longitude_ED,RSSI1,RSSI2,RSSI3,RSSI4,RSSI5,RSSI6,RSSI7,RSSI8,SNR1,SNR2,SNR3,SNR4,SNR5,SNR6,SNR7,SNR8",
+   "rows": 1203,
+   "fields_per_data_line": {
+    "22": 1203
+   },
+   "duplicate_rows": 0,
+   "duplicate_ids": 0,
+   "gateway_coords": [
+    [
+     32.6586745,
+     -16.9241067
+    ]
+   ],
+   "missing_device_coords": 0,
+   "unparsed_timestamps": 0,
+   "valid_snr_cells": 4174,
+   "valid_rssi_cells": 4174,
+   "snr_without_rssi": 0,
+   "rssi_without_snr": 0,
+   "snr_non_integer": 5450,
+   "snr_range": [
+    -19.0,
+    12.0
+   ],
+   "rssi_range": [
+    -118.0,
+    -42.0
+   ]
+  },
+  "GB_Uplink": {
+   "sha256": "70539594f0900456e2b1af09e3fa075e66a75867c5afa37f0562e4b3c099d8f6",
+   "raw_header": "\"ID,Timestamp,Latitude_GB,Longitude_GB,Latitude_ED,Longitude_ED,RSSI1;RSSI1,RSSI3,RSSI4,RSSI5,RSSI6,RSSI7,RSSI8,SNR1,SNR2,SNR3,SNR4,SNR5,SNR6,SNR7,SNR8\"",
+   "rows": 1203,
+   "fields_per_data_line": {
+    "22": 1203
+   },
+   "duplicate_rows": 0,
+   "duplicate_ids": 0,
+   "gateway_coords": [
+    [
+     32.6608016,
+     -16.9213307
+    ]
+   ],
+   "missing_device_coords": 0,
+   "unparsed_timestamps": 0,
+   "valid_snr_cells": 7693,
+   "valid_rssi_cells": 7690,
+   "snr_without_rssi": 3,
+   "rssi_without_snr": 0,
+   "snr_non_integer": 1931,
+   "snr_range": [
+    -20.0,
+    12.0
+   ],
+   "rssi_range": [
+    -119.0,
+    -41.0
+   ]
+  },
+  "GB_Downlink": {
+   "sha256": "7f3b40b4e8f139bac49d29d158977e4a7f7a23e72c771192427a96d6a03164e2",
+   "raw_header": "ID,Timestamp,Latitude_GB,Longitude_GB,Latitude_ED,Longitude_ED,RSSI1,RSSI2,RSSI3,RSSI4,RSSI5,RSSI6,RSSI7,RSSI8,SNR1,SNR2,SNR3,SNR4,SNR5,SNR6,SNR7,SNR8",
+   "rows": 1203,
+   "fields_per_data_line": {
+    "22": 1203
+   },
+   "duplicate_rows": 0,
+   "duplicate_ids": 0,
+   "gateway_coords": [
+    [
+     32.6608016,
+     -16.9213307
+    ]
+   ],
+   "missing_device_coords": 0,
+   "unparsed_timestamps": 0,
+   "valid_snr_cells": 7691,
+   "valid_rssi_cells": 7690,
+   "snr_without_rssi": 1,
+   "rssi_without_snr": 0,
+   "snr_non_integer": 1933,
+   "snr_range": [
+    -20.0,
+    14.0
+   ],
+   "rssi_range": [
+    -120.0,
+    -44.0
+   ]
+  },
+  "GC_Uplink": {
+   "sha256": "8da29fcddac7c51a017a0bebeebd39b7a8e1942ad459d16d3ff3a03b47d83f63",
+   "raw_header": "\"ID,Timestamp,Latitude_GC,Longitude_GC,Latitude_ED,Longitude_ED,RSSI1;RSSI1,RSSI3,RSSI4,RSSI5,RSSI6,RSSI7,RSSI8,SNR1,SNR2,SNR3,SNR4,SNR5,SNR6,SNR7,SNR8\"",
+   "rows": 1203,
+   "fields_per_data_line": {
+    "22": 1203
+   },
+   "duplicate_rows": 0,
+   "duplicate_ids": 0,
+   "gateway_coords": [
+    [
+     32.65487,
+     -16.9140664
+    ]
+   ],
+   "missing_device_coords": 0,
+   "unparsed_timestamps": 0,
+   "valid_snr_cells": 6646,
+   "valid_rssi_cells": 6644,
+   "snr_without_rssi": 2,
+   "rssi_without_snr": 0,
+   "snr_non_integer": 2978,
+   "snr_range": [
+    -20.0,
+    12.0
+   ],
+   "rssi_range": [
+    -119.0,
+    -33.0
+   ]
+  },
+  "GC_Downlink": {
+   "sha256": "96e351f22483f7fabc7423f39a018f4508a4ecd2a66445559e7c95a64eeea244",
+   "raw_header": "ID,Timestamp,Latitude_Gc,Longitude_Gc,Latitude_ED,Longitude_ED,RSSI1,RSSI2,RSSI3,RSSI4,RSSI5,RSSI6,RSSI7,RSSI8,SNR1,SNR2,SNR3,SNR4,SNR5,SNR6,SNR7,SNR8",
+   "rows": 1203,
+   "fields_per_data_line": {
+    "22": 1203
+   },
+   "duplicate_rows": 0,
+   "duplicate_ids": 0,
+   "gateway_coords": [
+    [
+     32.65487,
+     -16.9140664
+    ]
+   ],
+   "missing_device_coords": 0,
+   "unparsed_timestamps": 0,
+   "valid_snr_cells": 6645,
+   "valid_rssi_cells": 6644,
+   "snr_without_rssi": 1,
+   "rssi_without_snr": 0,
+   "snr_non_integer": 2979,
+   "snr_range": [
+    -20.0,
+    15.0
+   ],
+   "rssi_range": [
+    -120.0,
+    -34.0
+   ]
+  }
+ },
+ "checks": {
+  "same_1203_locations_in_all_files": true,
+  "uplink_downlink_same_timestamp": true,
+  "gateway_poll_offsets_vs_GA_s": {
+   "GA": [
+    0.0
+   ],
+   "GB": [
+    20.0
+   ],
+   "GC": [
+    40.0
+   ]
+  },
+  "campaign_days": 71,
+  "campaign_range": [
+   "2025-02-26 09:04:43",
+   "2025-10-30 18:30:08"
+  ],
+  "packet_rows": 37029,
+  "packet_rows_rssi_missing": 13,
+  "locations_with_no_packet_at_any_gateway": 4,
+  "valid_packets_by_file": {
+   "Downlink": {
+    "GA": 4174,
+    "GB": 7691,
+    "GC": 6645
+   },
+   "Uplink": {
+    "GA": 4180,
+    "GB": 7693,
+    "GC": 6646
+   }
+  }
+ },
+ "notes": [
+  "GB_Uplink and GC_Uplink headers are malformed in the raw files (quoted, 'RSSI1;RSSI1'); read with fixed names.",
+  "GC_Downlink header uses 'Latitude_Gc'; harmless with fixed names.",
+  "Slots carry no individual timestamps; the row timestamp is one per (location, gateway).",
+  "Units are not written in the files; values are consistent with dBm (RSSI) and dB (SNR).",
+  "SF, bandwidth, Tx power, frequency, antenna heights and environment labels are NOT in the files."
+ ]
+}

@@ -1,0 +1,5 @@
+direction,family,variants,delta_loc_min,delta_loc_max,delta_dist_min,delta_dist_max,delta_loc_range
+Downlink,LOBO at B* grid offset,2,-0.9956,-0.8706,0.1042,0.1136,0.125
+Downlink,S250 grid offset x seed,8,-1.3596,-1.1896,0.0403,0.1581,0.17
+Uplink,LOBO at B* grid offset,2,-0.9651,-0.8177,-0.0039,0.027,0.1475
+Uplink,S250 grid offset x seed,8,-1.5061,-1.2585,0.0144,0.1865,0.2476

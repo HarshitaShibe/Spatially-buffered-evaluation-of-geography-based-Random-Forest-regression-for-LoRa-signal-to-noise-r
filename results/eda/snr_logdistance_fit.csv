@@ -1,0 +1,7 @@
+gateway,direction,SNR_at_100m_dB,slope_per_decade_dB,residual_sd_dB
+GA,Downlink,8.81,-7.06,4.68
+GA,Uplink,3.28,-12.11,6.67
+GB,Downlink,8.2,-7.08,5.77
+GB,Uplink,6.12,-12.36,6.86
+GC,Downlink,9.25,-11.82,7.16
+GC,Uplink,6.6,-11.44,7.25

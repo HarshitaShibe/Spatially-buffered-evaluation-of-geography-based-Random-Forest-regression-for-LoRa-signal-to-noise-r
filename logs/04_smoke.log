@@ -1,0 +1,5 @@
+smoke Uplink L: max |new - archived rf_A| = 5.33e-15  RMSE new 5.0297
+smoke Uplink S250: max |new - archived rf_A| = 5.33e-15  RMSE new 5.7194
+smoke Downlink L: max |new - archived rf_A| = 3.55e-15  RMSE new 4.4788
+smoke Downlink S250: max |new - archived rf_A| = 5.33e-15  RMSE new 4.9337
+SMOKE TEST PASSED

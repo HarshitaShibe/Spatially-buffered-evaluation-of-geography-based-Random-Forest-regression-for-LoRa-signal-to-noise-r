@@ -1,0 +1,7 @@
+direction,gateway,packets,locations,share_locations_pct
+Downlink,GA,4174,746,62.01
+Downlink,GB,7691,1153,95.84
+Downlink,GC,6645,1004,83.46
+Uplink,GA,4180,747,62.09
+Uplink,GB,7693,1153,95.84
+Uplink,GC,6646,1004,83.46

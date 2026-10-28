@@ -1,0 +1,88 @@
+{
+ "status": "FROZEN PROTOCOL run (protocol-freeze doc, 28 Oct 2026)",
+ "seed": 20251028,
+ "runtime_s": 1772,
+ "python": "3.13.17",
+ "sklearn": "1.9.1",
+ "xgboost": "3.4.1",
+ "pandas": "3.0.5",
+ "numpy": "2.5.3",
+ "features": {
+  "dist": [
+   "log10_d",
+   "gw_GA",
+   "gw_GB",
+   "gw_GC"
+  ],
+  "loc": [
+   "log10_d",
+   "sin_b",
+   "cos_b",
+   "gw_GA",
+   "gw_GB",
+   "gw_GC",
+   "x_m",
+   "y_m"
+  ],
+  "C": [
+   "log10_d",
+   "sin_b",
+   "cos_b",
+   "gw_GA",
+   "gw_GB",
+   "gw_GC",
+   "x_m",
+   "y_m",
+   "rssi_dbm"
+  ]
+ },
+ "rf_grid": [
+  {
+   "min_samples_leaf": 5,
+   "max_features": 0.5
+  },
+  {
+   "min_samples_leaf": 5,
+   "max_features": 1.0
+  },
+  {
+   "min_samples_leaf": 20,
+   "max_features": 0.5
+  },
+  {
+   "min_samples_leaf": 20,
+   "max_features": 1.0
+  },
+  {
+   "min_samples_leaf": 50,
+   "max_features": 0.5
+  },
+  {
+   "min_samples_leaf": 50,
+   "max_features": 1.0
+  }
+ ],
+ "rf_trees": 200,
+ "hp_fixed": {
+  "Uplink": {
+   "rf_dist": {
+    "min_samples_leaf": 50,
+    "max_features": 1.0
+   },
+   "rf_loc": {
+    "min_samples_leaf": 20,
+    "max_features": 0.5
+   }
+  },
+  "Downlink": {
+   "rf_dist": {
+    "min_samples_leaf": 50,
+    "max_features": 1.0
+   },
+   "rf_loc": {
+    "min_samples_leaf": 20,
+    "max_features": 0.5
+   }
+  }
+ }
+}

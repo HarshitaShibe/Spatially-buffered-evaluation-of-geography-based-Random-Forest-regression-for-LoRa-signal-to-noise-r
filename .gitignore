@@ -1,0 +1,17 @@
+# Large generated outputs: regenerate with run_all.sh, or attach to a GitHub Release
+predictions/
+archive/
+
+# Python / Jupyter
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+executed.ipynb
+
+# Packaging artefacts
+*.zip
+MANIFEST.csv
+
+# OS
+.DS_Store
+Thumbs.db

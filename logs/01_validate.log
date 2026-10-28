@@ -1,0 +1,38 @@
+/mnt/attach/outputs/madeira_snr/01_validate.py:88: RuntimeWarning: Mean of empty slice
+  mean = np.nanmean(S, 1); med = np.nanmedian(S, 1)
+/mnt/attach/outputs/madeira_snr/01_validate.py:88: RuntimeWarning: All-NaN slice encountered
+  mean = np.nanmean(S, 1); med = np.nanmedian(S, 1)
+/mnt/attach/outputs/madeira_snr/01_validate.py:90: RuntimeWarning: Mean of empty slice
+  rmean = np.nanmean(R, 1)
+# Madeira data validation report
+
+All hard checks passed (script would have stopped otherwise).
+
+| File | Rows | Valid SNR | SNR range | RSSI range | SNR w/o RSSI | RSSI w/o SNR | sha256 (first 12) |
+|---|---|---|---|---|---|---|---|
+| GA_Uplink | 1203 | 4180 | [-21.0, 9.0] | [-112.0, -40.0] | 6 | 0 | 83deb6b4edb6 |
+| GA_Downlink | 1203 | 4174 | [-19.0, 12.0] | [-118.0, -42.0] | 0 | 0 | 1836aadb87d3 |
+| GB_Uplink | 1203 | 7693 | [-20.0, 12.0] | [-119.0, -41.0] | 3 | 0 | 70539594f090 |
+| GB_Downlink | 1203 | 7691 | [-20.0, 14.0] | [-120.0, -44.0] | 1 | 0 | 7f3b40b4e8f1 |
+| GC_Uplink | 1203 | 6646 | [-20.0, 12.0] | [-119.0, -33.0] | 2 | 0 | 8da29fcddac7 |
+| GC_Downlink | 1203 | 6645 | [-20.0, 15.0] | [-120.0, -34.0] | 1 | 0 | 96e351f22483 |
+
+## Cross-file checks
+
+- **same_1203_locations_in_all_files**: True
+- **uplink_downlink_same_timestamp**: True
+- **gateway_poll_offsets_vs_GA_s**: {'GA': [0.0], 'GB': [20.0], 'GC': [40.0]}
+- **campaign_days**: 71
+- **campaign_range**: ['2025-02-26 09:04:43', '2025-10-30 18:30:08']
+- **packet_rows**: 37029
+- **packet_rows_rssi_missing**: 13
+- **locations_with_no_packet_at_any_gateway**: 4
+- **valid_packets_by_file**: {'Downlink': {'GA': 4174, 'GB': 7691, 'GC': 6645}, 'Uplink': {'GA': 4180, 'GB': 7693, 'GC': 6646}}
+
+## Notes
+
+- GB_Uplink and GC_Uplink headers are malformed in the raw files (quoted, 'RSSI1;RSSI1'); read with fixed names.
+- GC_Downlink header uses 'Latitude_Gc'; harmless with fixed names.
+- Slots carry no individual timestamps; the row timestamp is one per (location, gateway).
+- Units are not written in the files; values are consistent with dBm (RSSI) and dB (SNR).
+- SF, bandwidth, Tx power, frequency, antenna heights and environment labels are NOT in the files.

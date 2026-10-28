@@ -1,0 +1,31 @@
+Uplink rf_dist GA done
+Uplink rf_dist GB done
+Uplink rf_dist GC done
+Uplink logdist GA done
+Uplink logdist GB done
+Uplink logdist GC done
+Downlink rf_dist GA done
+Downlink rf_dist GB done
+Downlink rf_dist GC done
+Downlink logdist GA done
+Downlink logdist GB done
+Downlink logdist GC done
+{
+ "B_star_m": 500,
+ "correlation_not_eliminated": true,
+ "max_upper_ci_at_candidate": {
+  "300": 0.426,
+  "500": 0.226
+ },
+ "rule": "smallest b in {300,500} with upper 95% CI of rf_dist residual correlation < 0.1 in the bin starting at b, for all 6 gateway x direction series; else 500 with flag",
+ "written_utc": "2026-10-28T01:02:49.145736+00:00",
+ "note": "written before any LOBO (buffered) model was fitted"
+}
+lag_m              [0,25)  [25,50)  [50,75)  [75,100)  [100,150)  [150,200)  [200,300)  [300,500)  [500,1000)
+direction gateway                                                                                            
+Downlink  GA         0.77     0.73     0.64      0.60       0.51       0.48       0.38       0.28        0.12
+          GB         1.18     0.71     0.58      0.54       0.39       0.26       0.18       0.12        0.04
+          GC         1.09     0.77     0.74      0.67       0.63       0.54       0.49       0.42        0.22
+Uplink    GA         0.86     0.74     0.67      0.61       0.50       0.47       0.36       0.23        0.08
+          GB         1.29     0.78     0.66      0.54       0.36       0.22       0.12       0.06        0.01
+          GC         1.36     0.78     0.74      0.70       0.67       0.60       0.51       0.43        0.23

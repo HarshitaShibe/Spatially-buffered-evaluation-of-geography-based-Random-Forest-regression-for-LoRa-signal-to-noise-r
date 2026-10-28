@@ -1,0 +1,7 @@
+direction,gateway,logdist,resrf_A,rf_A,floor
+Downlink,GA,4.753,4.391,4.217,2.13
+Downlink,GB,5.824,4.979,5.028,2.719
+Downlink,GC,7.239,5.332,5.232,2.916
+Uplink,GA,6.827,5.918,5.759,2.998
+Uplink,GB,6.9,6.119,6.055,3.053
+Uplink,GC,7.333,5.388,5.277,2.919

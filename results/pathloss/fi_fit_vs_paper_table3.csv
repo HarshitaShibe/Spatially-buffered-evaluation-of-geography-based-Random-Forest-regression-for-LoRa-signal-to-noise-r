@@ -1,0 +1,13 @@
+distance,direction,gateway,locations,alpha_dB,beta,RMSE_dB,paper_alpha,paper_beta,paper_RMSE
+d_3d,Downlink,GA,746,45.21,2.662,11.409,,,
+d_3d,Downlink,GB,1153,61.291,2.114,10.321,,,
+d_3d,Downlink,GC,1004,44.524,2.915,12.263,,,
+d_3d,Uplink,GA,746,42.688,2.788,11.889,42.6,2.79,11.9
+d_3d,Uplink,GB,1153,54.845,2.373,11.061,54.9,2.37,11.1
+d_3d,Uplink,GC,1004,44.018,2.932,12.229,44.4,2.92,12.2
+d_h,Downlink,GA,746,46.211,2.629,11.385,,,
+d_h,Downlink,GB,1153,61.297,2.114,10.32,,,
+d_h,Downlink,GC,1004,45.699,2.876,12.246,,,
+d_h,Uplink,GA,746,43.753,2.753,11.866,42.6,2.79,11.9
+d_h,Uplink,GB,1153,54.852,2.373,11.061,54.9,2.37,11.1
+d_h,Uplink,GC,1004,45.199,2.893,12.212,44.4,2.92,12.2

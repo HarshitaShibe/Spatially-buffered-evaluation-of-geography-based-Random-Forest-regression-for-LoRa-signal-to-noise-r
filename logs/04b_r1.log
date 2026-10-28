@@ -1,0 +1,15 @@
+R1_LOBO_o1_B500 Uplink block 0       3s
+R1_LOBO_o1_B500 Uplink block 20      52s
+R1_LOBO_o1_B500 Uplink block 40     104s
+R1_LOBO_o1_B500 Uplink block 60     158s
+R1_LOBO_o1_B500 Uplink block 80     209s
+R1_LOBO_o1_B500 Uplink block 100     256s
+R1_LOBO_o1_B500 Uplink block 120     301s
+R1_LOBO_o1_B500 Downlink block 0     321s
+R1_LOBO_o1_B500 Downlink block 20     368s
+R1_LOBO_o1_B500 Downlink block 40     417s
+R1_LOBO_o1_B500 Downlink block 60     468s
+R1_LOBO_o1_B500 Downlink block 80     517s
+R1_LOBO_o1_B500 Downlink block 100     564s
+R1_LOBO_o1_B500 Downlink block 120     611s
+done r1 629 s

@@ -1,0 +1,22 @@
+{
+ "Uplink": {
+  "rf_dist": {
+   "min_samples_leaf": 50,
+   "max_features": 1.0
+  },
+  "rf_loc": {
+   "min_samples_leaf": 20,
+   "max_features": 0.5
+  }
+ },
+ "Downlink": {
+  "rf_dist": {
+   "min_samples_leaf": 50,
+   "max_features": 1.0
+  },
+  "rf_loc": {
+   "min_samples_leaf": 20,
+   "max_features": 0.5
+  }
+ }
+}

@@ -1,0 +1,7 @@
+gateway,direction,packets,PL_at_100m_dB,path_loss_exponent_n,shadowing_sigma_dB
+GA,Downlink,4174,97.49,2.327,10.54
+GA,Uplink,4174,95.85,1.923,8.54
+GB,Downlink,7690,104.97,1.66,9.2
+GB,Uplink,7690,104.2,1.39,8.15
+GC,Downlink,6644,105.96,1.942,9.74
+GC,Uplink,6644,105.15,1.887,8.93

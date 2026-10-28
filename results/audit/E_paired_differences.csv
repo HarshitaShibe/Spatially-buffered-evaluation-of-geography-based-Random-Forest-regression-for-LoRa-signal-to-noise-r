@@ -1,0 +1,31 @@
+direction,comparison,split,resample_blocks,diff_RMSE,ci95_low,ci95_high
+Uplink,rf_A - logdist,L,block250,-1.943,-2.212,-1.672
+Uplink,rf_A - lr_A,L,block250,-1.559,-1.777,-1.337
+Uplink,xgb_A - rf_A,L,block250,0.149,0.087,0.215
+Uplink,rf_A - rf_A0,L,block250,-0.083,-0.128,-0.034
+Uplink,rf_A - logdist,S250,block250,-1.323,-1.623,-1.048
+Uplink,rf_A - lr_A,S250,block250,-0.989,-1.188,-0.799
+Uplink,xgb_A - rf_A,S250,block250,0.145,0.04,0.25
+Uplink,rf_A - rf_A0,S250,block250,-0.032,-0.109,0.047
+Uplink,rf_A - logdist,S500,block500,-0.778,-1.251,-0.354
+Uplink,rf_A - lr_A,S500,block500,-0.361,-0.645,-0.069
+Uplink,xgb_A - rf_A,S500,block500,0.212,0.075,0.387
+Uplink,rf_A - rf_A0,S500,block500,0.136,-0.022,0.276
+Uplink,rf_A: L - R,L vs R,block250,1.413,1.294,1.548
+Uplink,rf_A: S250 - R,S250 vs R,block250,2.103,1.902,2.316
+Uplink,rf_A: S500 - R,S500 vs R,block500,2.78,2.372,3.168
+Downlink,rf_A - logdist,L,block250,-1.624,-1.899,-1.373
+Downlink,rf_A - lr_A,L,block250,-1.224,-1.418,-1.036
+Downlink,xgb_A - rf_A,L,block250,0.08,0.032,0.128
+Downlink,rf_A - rf_A0,L,block250,-0.033,-0.062,-0.002
+Downlink,rf_A - logdist,S250,block250,-1.231,-1.522,-0.948
+Downlink,rf_A - lr_A,S250,block250,-0.866,-1.077,-0.676
+Downlink,xgb_A - rf_A,S250,block250,0.12,0.034,0.212
+Downlink,rf_A - rf_A0,S250,block250,-0.055,-0.129,0.02
+Downlink,rf_A - logdist,S500,block500,-0.658,-1.203,-0.231
+Downlink,rf_A - lr_A,S500,block500,-0.21,-0.493,0.054
+Downlink,xgb_A - rf_A,S500,block500,0.069,-0.057,0.242
+Downlink,rf_A - rf_A0,S500,block500,0.006,-0.179,0.172
+Downlink,rf_A: L - R,L vs R,block250,1.211,1.086,1.345
+Downlink,rf_A: S250 - R,S250 vs R,block250,1.665,1.505,1.836
+Downlink,rf_A: S500 - R,S500 vs R,block500,2.389,2.029,2.75

@@ -1,0 +1,231 @@
+{
+ "Uplink": {
+  "block500_all": {
+   "delta_loc_Bstar": -0.818,
+   "ci95": [
+    -1.198,
+    -0.456
+   ],
+   "classification": "inconclusive",
+   "delta_loc_B0_same_packets": -1.517,
+   "delta_loc_B0_ci95": [
+    -1.808,
+    -1.216
+   ],
+   "change_Bstar_minus_B0": 0.699,
+   "change_ci95": [
+    0.364,
+    0.95
+   ],
+   "packets": 18519
+  },
+  "block500_supported": {
+   "delta_loc_Bstar": -0.887,
+   "ci95": [
+    -1.258,
+    -0.522
+   ],
+   "classification": "practically relevant location advantage persists",
+   "delta_loc_B0_same_packets": -1.587,
+   "delta_loc_B0_ci95": [
+    -1.879,
+    -1.261
+   ],
+   "change_Bstar_minus_B0": 0.7,
+   "change_ci95": [
+    0.353,
+    0.97
+   ],
+   "packets": 17091
+  },
+  "block1000_all": {
+   "delta_loc_Bstar": -0.818,
+   "ci95": [
+    -1.359,
+    -0.493
+   ],
+   "classification": "inconclusive",
+   "delta_loc_B0_same_packets": -1.517,
+   "delta_loc_B0_ci95": [
+    -1.779,
+    -1.347
+   ],
+   "change_Bstar_minus_B0": 0.699,
+   "change_ci95": [
+    0.204,
+    1.003
+   ],
+   "packets": 18519
+  },
+  "block1000_supported": {
+   "delta_loc_Bstar": -0.887,
+   "ci95": [
+    -1.371,
+    -0.577
+   ],
+   "classification": "practically relevant location advantage persists",
+   "delta_loc_B0_same_packets": -1.587,
+   "delta_loc_B0_ci95": [
+    -1.811,
+    -1.416
+   ],
+   "change_Bstar_minus_B0": 0.7,
+   "change_ci95": [
+    0.192,
+    1.03
+   ],
+   "packets": 17091
+  }
+ },
+ "Downlink": {
+  "block500_all": {
+   "delta_loc_Bstar": -0.871,
+   "ci95": [
+    -1.35,
+    -0.416
+   ],
+   "classification": "inconclusive",
+   "delta_loc_B0_same_packets": -1.338,
+   "delta_loc_B0_ci95": [
+    -1.63,
+    -1.039
+   ],
+   "change_Bstar_minus_B0": 0.467,
+   "change_ci95": [
+    0.046,
+    0.858
+   ],
+   "packets": 18510
+  },
+  "block500_supported": {
+   "delta_loc_Bstar": -1.018,
+   "ci95": [
+    -1.458,
+    -0.598
+   ],
+   "classification": "practically relevant location advantage persists",
+   "delta_loc_B0_same_packets": -1.398,
+   "delta_loc_B0_ci95": [
+    -1.706,
+    -1.08
+   ],
+   "change_Bstar_minus_B0": 0.38,
+   "change_ci95": [
+    0.008,
+    0.725
+   ],
+   "packets": 17082
+  },
+  "block1000_all": {
+   "delta_loc_Bstar": -0.871,
+   "ci95": [
+    -1.472,
+    -0.49
+   ],
+   "classification": "inconclusive",
+   "delta_loc_B0_same_packets": -1.338,
+   "delta_loc_B0_ci95": [
+    -1.587,
+    -1.148
+   ],
+   "change_Bstar_minus_B0": 0.467,
+   "change_ci95": [
+    -0.023,
+    0.749
+   ],
+   "packets": 18510
+  },
+  "block1000_supported": {
+   "delta_loc_Bstar": -1.018,
+   "ci95": [
+    -1.546,
+    -0.649
+   ],
+   "classification": "practically relevant location advantage persists",
+   "delta_loc_B0_same_packets": -1.398,
+   "delta_loc_B0_ci95": [
+    -1.609,
+    -1.211
+   ],
+   "change_Bstar_minus_B0": 0.38,
+   "change_ci95": [
+    -0.062,
+    0.657
+   ],
+   "packets": 17082
+  }
+ },
+ "primary": {
+  "Uplink": "inconclusive",
+  "Downlink": "inconclusive"
+ },
+ "general_claim_allowed": true,
+ "residual_correlation_at_Bstar": {
+  "B_star_m": 500,
+  "lag_bin_m": "[500,1000)",
+  "correlation_not_eliminated": true,
+  "estimator": "location-mean rf_dist residuals, L split, 500 m block bootstrap (attenuated by within-location noise)",
+  "series": [
+   {
+    "direction": "Uplink",
+    "gateway": "GA",
+    "pairs": 69111,
+    "correlation": -0.039,
+    "ci95": [
+     -0.152,
+     0.084
+    ]
+   },
+   {
+    "direction": "Uplink",
+    "gateway": "GB",
+    "pairs": 145294,
+    "correlation": -0.021,
+    "ci95": [
+     -0.069,
+     0.007
+    ]
+   },
+   {
+    "direction": "Uplink",
+    "gateway": "GC",
+    "pairs": 122058,
+    "correlation": 0.08,
+    "ci95": [
+     -0.035,
+     0.226
+    ]
+   },
+   {
+    "direction": "Downlink",
+    "gateway": "GA",
+    "pairs": 68951,
+    "correlation": -0.009,
+    "ci95": [
+     -0.117,
+     0.119
+    ]
+   },
+   {
+    "direction": "Downlink",
+    "gateway": "GB",
+    "pairs": 145294,
+    "correlation": -0.002,
+    "ci95": [
+     -0.06,
+     0.037
+    ]
+   },
+   {
+    "direction": "Downlink",
+    "gateway": "GC",
+    "pairs": 122058,
+    "correlation": 0.085,
+    "ci95": [
+     -0.023,
+     0.222
+    ]
+   }
+  ]
+ }
+}

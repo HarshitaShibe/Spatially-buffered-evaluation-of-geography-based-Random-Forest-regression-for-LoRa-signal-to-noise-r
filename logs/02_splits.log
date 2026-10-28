@@ -1,0 +1,107 @@
+{
+ "fold_R": {
+  "locations_per_fold": null,
+  "packets_per_fold": [
+   7406,
+   7406,
+   7406,
+   7406,
+   7405
+  ]
+ },
+ "fold_L": {
+  "locations_per_fold": [
+   241,
+   241,
+   241,
+   240,
+   240
+  ],
+  "packets_per_fold": [
+   7601,
+   7397,
+   7258,
+   7348,
+   7425
+  ],
+  "median_dist_to_nearest_training_location_m": 41.8,
+  "share_with_training_neighbour_within_50m": 0.638
+ },
+ "fold_S250": {
+  "locations_per_fold": [
+   260,
+   254,
+   211,
+   209,
+   269
+  ],
+  "packets_per_fold": [
+   8566,
+   7036,
+   6828,
+   6284,
+   8315
+  ],
+  "median_dist_to_nearest_training_location_m": 82.7,
+  "share_with_training_neighbour_within_50m": 0.179
+ },
+ "fold_S500": {
+  "locations_per_fold": [
+   226,
+   249,
+   172,
+   281,
+   275
+  ],
+  "packets_per_fold": [
+   6961,
+   7565,
+   5172,
+   9051,
+   8280
+  ],
+  "median_dist_to_nearest_training_location_m": 132.7,
+  "share_with_training_neighbour_within_50m": 0.081
+ },
+ "n_blocks_250": 126,
+ "n_blocks_500": 42,
+ "lobo": {
+  "o0_b0": {
+   "blocks": 126,
+   "min_retained_share": 1.0,
+   "median_retained_share": 1.0
+  },
+  "o0_b300": {
+   "blocks": 126,
+   "min_retained_share": 0.864,
+   "median_retained_share": 0.955
+  },
+  "o0_b500": {
+   "blocks": 126,
+   "min_retained_share": 0.751,
+   "median_retained_share": 0.892
+  },
+  "o0_b1000": {
+   "blocks": 126,
+   "min_retained_share": 0.431,
+   "median_retained_share": 0.679
+  },
+  "o1_b0": {
+   "blocks": 129,
+   "min_retained_share": 1.0,
+   "median_retained_share": 1.0
+  },
+  "o1_b300": {
+   "blocks": 129,
+   "min_retained_share": 0.868,
+   "median_retained_share": 0.958
+  },
+  "o1_b500": {
+   "blocks": 129,
+   "min_retained_share": 0.743,
+   "median_retained_share": 0.898
+  }
+ },
+ "n_blocks_1000": 13,
+ "n_blocks_250_o1": 129
+}

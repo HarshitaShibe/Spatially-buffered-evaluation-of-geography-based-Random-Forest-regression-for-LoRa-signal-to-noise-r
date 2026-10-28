@@ -1,0 +1,21 @@
+direction,robustness_type,family,variant,RMSE_logdist,RMSE_rf_dist,RMSE_rf_loc,delta_loc,delta_dist
+Uplink,fixed-hyperparameter,S250 grid offset x seed,R1_S250_o0_s0,7.0423,7.1127,5.7194,-1.3933,0.0704
+Uplink,fixed-hyperparameter,S250 grid offset x seed,R1_S250_o0_s1,7.0266,7.1366,5.7178,-1.4188,0.11
+Uplink,fixed-hyperparameter,S250 grid offset x seed,R1_S250_o1_s0,7.004,7.1231,5.8646,-1.2585,0.1192
+Uplink,fixed-hyperparameter,S250 grid offset x seed,R1_S250_o1_s1,7.0565,7.2431,5.7686,-1.4744,0.1865
+Uplink,fixed-hyperparameter,S250 grid offset x seed,R1_S250_o2_s0,7.0187,7.0331,5.6789,-1.3542,0.0144
+Uplink,fixed-hyperparameter,S250 grid offset x seed,R1_S250_o2_s1,7.0406,7.1916,5.6855,-1.5061,0.151
+Uplink,fixed-hyperparameter,S250 grid offset x seed,R1_S250_o3_s0,7.0282,7.156,5.7769,-1.3791,0.1278
+Uplink,fixed-hyperparameter,S250 grid offset x seed,R1_S250_o3_s1,7.0544,7.1221,5.7678,-1.3543,0.0677
+Uplink,fixed-hyperparameter,LOBO at B* grid offset,LOBO_B500,7.7083,7.7353,6.9176,-0.8177,0.027
+Uplink,fixed-hyperparameter,LOBO at B* grid offset,R1_LOBO_o1_B500,7.7259,7.722,6.7569,-0.9651,-0.0039
+Downlink,fixed-hyperparameter,S250 grid offset x seed,R1_S250_o0_s0,6.1647,6.2514,4.9111,-1.3403,0.0868
+Downlink,fixed-hyperparameter,S250 grid offset x seed,R1_S250_o0_s1,6.1698,6.2684,5.0134,-1.255,0.0986
+Downlink,fixed-hyperparameter,S250 grid offset x seed,R1_S250_o1_s0,6.1104,6.2335,5.0439,-1.1896,0.1231
+Downlink,fixed-hyperparameter,S250 grid offset x seed,R1_S250_o1_s1,6.1688,6.3147,5.087,-1.2277,0.1459
+Downlink,fixed-hyperparameter,S250 grid offset x seed,R1_S250_o2_s0,6.141,6.1813,4.9211,-1.2602,0.0403
+Downlink,fixed-hyperparameter,S250 grid offset x seed,R1_S250_o2_s1,6.164,6.2962,4.9961,-1.3001,0.1323
+Downlink,fixed-hyperparameter,S250 grid offset x seed,R1_S250_o3_s0,6.1423,6.3003,4.9407,-1.3596,0.1581
+Downlink,fixed-hyperparameter,S250 grid offset x seed,R1_S250_o3_s1,6.1728,6.2205,4.9316,-1.289,0.0477
+Downlink,fixed-hyperparameter,LOBO at B* grid offset,LOBO_B500,6.8961,7.0002,6.1296,-0.8706,0.1042
+Downlink,fixed-hyperparameter,LOBO at B* grid offset,R1_LOBO_o1_B500,6.898,7.0116,6.0161,-0.9956,0.1136

@@ -1,0 +1,11 @@
+{
+ "B_star_m": 500,
+ "correlation_not_eliminated": true,
+ "max_upper_ci_at_candidate": {
+  "300": 0.426,
+  "500": 0.226
+ },
+ "rule": "smallest b in {300,500} with upper 95% CI of rf_dist residual correlation < 0.1 in the bin starting at b, for all 6 gateway x direction series; else 500 with flag",
+ "written_utc": "2026-10-28T01:02:49.145736+00:00",
+ "note": "written before any LOBO (buffered) model was fitted"
+}

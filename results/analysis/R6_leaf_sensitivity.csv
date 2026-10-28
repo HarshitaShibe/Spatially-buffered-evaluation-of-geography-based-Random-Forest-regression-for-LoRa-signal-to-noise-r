@@ -1,0 +1,5 @@
+direction,leaf,delta_loc,delta_loc_fixed,change,hyperparameter_sensitive
+Uplink,5,-1.6931,-0.8177,-0.8755,True
+Uplink,50,-0.8605,-0.8177,-0.0429,False
+Downlink,5,-1.556,-0.8706,-0.6854,True
+Downlink,50,-0.9429,-0.8706,-0.0723,False

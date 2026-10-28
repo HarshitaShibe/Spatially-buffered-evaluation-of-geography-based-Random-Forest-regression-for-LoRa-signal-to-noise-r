@@ -1,0 +1,48 @@
+
+== data_summary
+ gateway direction  locations_total  locations_with_packet  locations_all_8  packets  dist_min_m  dist_median_m  dist_max_m  snr_mean  snr_sd  snr_min  snr_max  share_packets_rssi_above_m90
+     GA  Downlink             1203                    746              274     4174        17.8          772.7      3215.5      2.86    5.25    -19.0     12.0                         0.181
+     GA    Uplink             1203                    747              275     4180        17.8          772.7      3215.5     -6.92    7.80    -21.0      9.0                         0.212
+     GB  Downlink             1203                   1153              603     7691        21.3         1075.6      3085.5      1.02    6.11    -20.0     14.0                         0.078
+     GB    Uplink             1203                   1153              604     7693        21.3         1077.6      3085.5     -6.42    7.71    -20.0     12.0                         0.093
+     GC  Downlink             1203                   1004              555     6645         8.0          835.1      2599.1     -0.91    8.30    -20.0     15.0                         0.084
+     GC    Uplink             1203                   1004              555     6646         8.0          835.1      2599.1     -3.23    8.31    -20.0     12.0                         0.097
+
+== within_location_variability
+ gateway direction  locations_used  pooled_within_sd_db  ci95_low  ci95_high
+     GA  Downlink             678                2.351     2.149      2.523
+     GA    Uplink             679                3.308     3.144      3.445
+     GB  Downlink            1119                2.949     2.814      3.090
+     GB    Uplink            1119                3.312     3.191      3.413
+     GC  Downlink             951                3.165     3.017      3.307
+     GC    Uplink             951                3.168     2.999      3.324
+
+== rssi_pathloss_fit
+ gateway direction  packets  PL_at_100m_dB  path_loss_exponent_n  shadowing_sigma_dB
+     GA  Downlink     4174          97.49                 2.327               10.54
+     GA    Uplink     4174          95.85                 1.923                8.54
+     GB  Downlink     7690         104.97                 1.660                9.20
+     GB    Uplink     7690         104.20                 1.390                8.15
+     GC  Downlink     6644         105.96                 1.942                9.74
+     GC    Uplink     6644         105.15                 1.887                8.93
+
+== snr_logdistance_fit
+ gateway direction  SNR_at_100m_dB  slope_per_decade_dB  residual_sd_dB
+     GA  Downlink            8.81                -7.06            4.68
+     GA    Uplink            3.28               -12.11            6.67
+     GB  Downlink            8.20                -7.08            5.77
+     GB    Uplink            6.12               -12.36            6.86
+     GC  Downlink            9.25               -11.82            7.16
+     GC    Uplink            6.60               -11.44            7.25
+
+== censoring (median location SNR by valid count)
+ n_valid               1     2     3     4     5     6     7    8
+direction gateway                                               
+Downlink  GA       -5.5  -3.5  -2.0  -2.5  -1.0   0.2   3.0  7.0
+          GB       -7.0  -6.0  -5.0  -4.0  -4.0  -2.0  -1.0  4.0
+          GC      -15.0 -14.5 -14.0 -12.8 -12.0 -10.5  -5.0  4.0
+Uplink    GA      -18.0 -16.5 -16.0 -14.5 -15.0 -11.8 -10.0 -1.0
+          GB      -18.0 -17.5 -16.0 -15.5 -15.0 -12.8 -11.0 -3.0
+          GC      -18.0 -17.0 -17.0 -15.0 -14.0 -13.0  -7.0  1.0
+
+All-file pooled within-location SD: 3.091 dB over 5497 location-gateway-direction groups

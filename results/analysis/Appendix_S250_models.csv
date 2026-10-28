@@ -1,0 +1,7 @@
+direction,model,n,RMSE,diff_vs_rf_loc,ci95_low,ci95_high
+Uplink,xgb_loc,18519,5.8643,0.1449,0.047,0.244
+Uplink,resrf_loc,18519,5.8204,0.101,-0.0436,0.2605
+Uplink,rf_C,18508,3.5658,-2.1477,-2.4529,-1.8476
+Downlink,xgb_loc,18510,5.0538,0.1202,0.0355,0.2129
+Downlink,resrf_loc,18510,4.9853,0.0517,-0.0247,0.1409
+Downlink,rf_C,18508,3.6478,-1.2859,-1.5459,-1.0075
