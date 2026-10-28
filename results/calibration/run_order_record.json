@@ -1,0 +1,24 @@
+{
+ "purpose": "Original file modification times from the run of 28 Oct 2026, kept because git does not preserve file times. 06_check.py uses live mtimes when they are original, and otherwise this record, after checking that both files' SHA-256 still match.",
+ "recorded_utc": "2026-10-28T12:24:37+00:00",
+ "buffer_choice": {
+  "path": "results/calibration/buffer_choice.json",
+  "mtime_utc": "2026-10-28T01:02:55+00:00",
+  "sha256": "28e1dbeb7a702f5e4ce562d0f871e940ebe7efce2066f1273352682394249bea"
+ },
+ "first_buffered_prediction": {
+  "path": "predictions/oof_Uplink_LOBO_B0.csv",
+  "mtime_utc": "2026-10-28T01:08:39+00:00",
+  "sha256": "c49324c1148df9aaeda0a8a74e29cc874d725c0cb7046dc70f0a621ece39fc63"
+ },
+ "all_buffered_predictions_mtime_utc": {
+  "oof_Uplink_LOBO_B0.csv": "2026-10-28T01:08:39+00:00",
+  "oof_Downlink_LOBO_B0.csv": "2026-10-28T01:14:21+00:00",
+  "oof_Uplink_LOBO_B300.csv": "2026-10-28T01:19:45+00:00",
+  "oof_Downlink_LOBO_B300.csv": "2026-10-28T01:25:09+00:00",
+  "oof_Uplink_LOBO_B500.csv": "2026-10-28T01:30:08+00:00",
+  "oof_Downlink_LOBO_B500.csv": "2026-10-28T01:35:10+00:00",
+  "oof_Uplink_LOBO_B1000.csv": "2026-10-28T01:39:06+00:00",
+  "oof_Downlink_LOBO_B1000.csv": "2026-10-28T01:42:52+00:00"
+ }
+}

@@ -18,6 +18,7 @@ here describes lost packets.
 | 04b main / r1 / r2 / r6 | 2,397 s / 629 s / 1,830 s / 1,397 s | 06; integrity check (supported share matches freeze checks) |
 | 07 analysis | 18 s | `tools/verify_results.py`: **0 failures** |
 | 06 integrity checks | 22 s | "OK: 44 prediction files checked …" (`logs/06_check.log`) |
+| 06 portability fix (28 Oct, after GitHub push) | — | Check 7 originally compared live file times, and git does not keep file times, so it failed on any fresh clone. It now uses `results/calibration/run_order_record.json` (original times: B\* 01:02:55 UTC, first buffered file 01:08:39 UTC) after a SHA-256 match. Tested: passes in the original folder and on a fresh clone; fails if `buffer_choice.json` is altered. No result changed |
 | 05 tables and figures | 2 s | Figures inspected |
 | 09 path-loss reproduction | 28 Oct | Matches the dataset paper's Table 3 |
 | Literature review | 28 Oct | 25 entries verified (`literature_review.md`, `references_verified.bib`) |
