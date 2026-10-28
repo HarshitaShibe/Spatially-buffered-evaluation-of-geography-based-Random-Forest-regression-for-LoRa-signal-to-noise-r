@@ -69,8 +69,8 @@ if abs(t_choice - t_written) <= 120:      # original working copy: file times ar
     order_src = "file times"
 else:                                     # fresh clone / unzip: git does not keep file times, use the run record
     rec = json.loads((RES / "calibration" / "run_order_record.json").read_text())
-    for k in ("buffer_choice", "first_buffered_prediction"):
-        assert hashlib.sha256((ROOT / rec[k]["path"]).read_bytes()).hexdigest() == rec[k]["sha256"], \
+    for k in ("buffer_choice", "first_buffered_prediction"):   # CRLF-normalised: Git for Windows converts line endings
+        assert hashlib.sha256((ROOT / rec[k]["path"]).read_bytes().replace(b"\r\n", b"\n")).hexdigest() == rec[k]["sha256"], \
             f"{rec[k]['path']} differs from the file in run_order_record.json"
     assert rec["buffer_choice"]["mtime_utc"] < rec["first_buffered_prediction"]["mtime_utc"], \
         "B* choice was not recorded before the buffered runs"
